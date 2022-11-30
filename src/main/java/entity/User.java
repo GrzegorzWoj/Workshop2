@@ -7,6 +7,17 @@ public class User {
     private String email;
     private String password;
 
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+
     public int getId() {
         return id;
     }

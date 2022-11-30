@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DbUtil {
 
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/cinemas_ex?useSSL=false&characterEncoding=utf8&serverTimezone=UTC";
+    public static final String DB_URL = "jdbc:mysql://localhost:3306/workshop2?useSSL=false&characterEncoding=utf8&serverTimezone=UTC";
     public static final String DB_USER = "root";
     public static final String DB_PASS = "coderslab";
 
