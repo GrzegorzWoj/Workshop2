@@ -1,6 +1,7 @@
 package entity;
 
 import dao.DbUtil;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public class UserDao {
             PreparedStatement statement = conn.prepareStatement(CREATE_USER_QUERY, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, user.getUserName());
             statement.setString(2, user.getEmail());
-            statement.setString(3, user.getPassword());
+            statement.setString(3, hashPassword(user.getPassword()));
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -60,7 +61,7 @@ public class UserDao {
             PreparedStatement statement = conn.prepareStatement(UPDATE_USER_QUERY);
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getUserName());
-            statement.setString(3, user.getPassword());
+            statement.setString(3, hashPassword(user.getPassword()));
             statement.setInt(4, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -104,18 +105,9 @@ public class UserDao {
     }
 
 
-    // JAK POBRAĆ WARTOŚĆ KLUCZA GŁÓWNEGO WŁAŚNIE WPISANEGO DO BAZY DANYCH ELEMENTU:
-//    PreparedStatement preStmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-//
-//    ResultSet rs = preStmt.getGeneratedKeys();
-//    if (rs.next()) {
-//        long id = rs.getLong(1);
-//        System.out.println("Inserted ID: " + id);
-//    }
-
-    // HASHOWANIE HASŁA:
-//    public String hashPassword(String password) {
-//        return BCrypt.hashpw(password, BCrypt.gensalt());
+    public String hashPassword(String password) {
+        return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
 
 }
 
